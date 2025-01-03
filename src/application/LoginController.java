@@ -28,7 +28,7 @@ public class LoginController {
     	String uName = username.getText();
     	String pWord = password.getText();
     	int resp = validator(uName, pWord);
-    	System.out.println(resp);
+
     	Alert alert;
     	if(resp == 0) {
     		alert = new Alert (AlertType.ERROR);
@@ -47,7 +47,7 @@ public class LoginController {
     	else {
     		try {
 	    		loginBtn.getScene().getWindow().hide();
-	    		Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+	    		Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				Stage primaryStage = new Stage();
@@ -63,7 +63,6 @@ public class LoginController {
     }
     
     int validator(String uName, String pwd) {
-    	System.out.println(uName + "  " + pwd);
     	if (uName.isEmpty() || pwd.isEmpty()) {
     		return 0;
     	}
