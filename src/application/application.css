@@ -27,4 +27,31 @@
 
 .white-bg{
 	-fx-background-color: #fff;
+	-fx-background-radius: 8px;
 }
+
+.nav-btn{
+	-fx-background-color: #4ca1af ;
+	-fx-font-size: 14;
+	-fx-text-fill: #fff;
+	
+}
+
+.nav-btn:hover{
+	-fx-background-color: #02aab0;
+	-fx-font-size: 15;
+	-fx-border-color: #fff;
+	-fx-border-radius: 2px 2px 2px 2px;
+	-fx-cursor: hand;
+}
+
+.shadow{
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 6, 0, 0, 0);
+}
+
+.card-background{
+	-fx-background-color: linear-gradient(to right, #614385 , #516395);
+    -fx-background-radius: 0 20 20 0;
+	
+}
+
