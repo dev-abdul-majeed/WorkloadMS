@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -22,6 +23,15 @@ public class LoginController {
 
     @FXML
     private TextField username;
+    
+    @FXML
+    private AnchorPane add_employee_form;
+    
+    @FXML
+    private AnchorPane home_form;
+    
+    @FXML
+    private AnchorPane workload_form;
 
     @FXML
     void login(ActionEvent event) {
@@ -53,6 +63,7 @@ public class LoginController {
 				Stage primaryStage = new Stage();
 				primaryStage.setScene(scene);
 				primaryStage.show();
+				
     		}
     		catch(Exception e){
     			e.printStackTrace();

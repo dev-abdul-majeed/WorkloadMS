@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
@@ -20,6 +21,22 @@ public class DashboardController {
 
     @FXML
     private Button logoutBtn;
+    
+    @FXML
+    private Button workloadBtn;
+    
+    @FXML
+    private Button addEmployeeBtn;
+    
+    @FXML
+    private AnchorPane add_employee_form;
+    
+    @FXML
+    private AnchorPane home_form;
+    
+    @FXML
+    private AnchorPane workload_form;
+
 
     @FXML
     void logout(ActionEvent event) {
@@ -44,5 +61,31 @@ public class DashboardController {
 
 
     }
-
+    
+    public void switchForm(ActionEvent event) {
+    	if(event.getSource() == homeBtn) {
+    		home_form.setVisible(true);
+    		workload_form.setVisible(false);
+    		add_employee_form.setVisible(false);
+    		homeBtn.setStyle("-fx-background-color: #00cdac;");
+    		workloadBtn.setStyle("-fx-background-color: transparent;");
+    		addEmployeeBtn.setStyle("-fx-background-color: transparent;");    		
+    	}
+    	else if(event.getSource() == workloadBtn) {
+    		home_form.setVisible(false);
+    		workload_form.setVisible(true);
+    		add_employee_form.setVisible(false);
+    		homeBtn.setStyle("-fx-background-color: transparent;");
+    		workloadBtn.setStyle("-fx-background-color: #00cdac;");
+    		addEmployeeBtn.setStyle("-fx-background-color: transparent;");
+    	}
+    	else if(event.getSource() == addEmployeeBtn) {
+    		home_form.setVisible(false);
+    		workload_form.setVisible(false);
+    		add_employee_form.setVisible(true);
+    		homeBtn.setStyle("-fx-background-color: transparent;");
+    		workloadBtn.setStyle("-fx-background-color: transparent;");
+    		addEmployeeBtn.setStyle("-fx-background-color: #00cdac;");
+    	}
+    }
 }

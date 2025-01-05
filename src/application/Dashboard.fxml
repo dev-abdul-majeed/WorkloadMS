@@ -15,7 +15,6 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1170.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DashboardController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -45,17 +44,17 @@
                            </font>
                         </Label>
                         <Line endX="100.0" layoutX="100.0" layoutY="72.0" startX="-100.0" />
-                        <Button layoutX="25.0" layoutY="168.0" minHeight="40.0" mnemonicParsing="false" prefWidth="150.0" styleClass="nav-btn" stylesheets="@application.css" text="Add an Employee" />
-                        <Button fx:id="homeBtn" layoutX="25.0" layoutY="111.0" minHeight="40.0" mnemonicParsing="false" prefWidth="150.0" styleClass="nav-btn" stylesheets="@application.css" text="Home" />
+                        <Button fx:id="addEmployeeBtn" layoutX="25.0" layoutY="168.0" minHeight="40.0" mnemonicParsing="false" onAction="#switchForm" prefWidth="150.0" styleClass="nav-btn" stylesheets="@application.css" text="Add an Employee" />
+                        <Button fx:id="homeBtn" layoutX="25.0" layoutY="111.0" minHeight="40.0" mnemonicParsing="false" onAction="#switchForm" prefWidth="150.0" styleClass="nav-btn" stylesheets="@application.css" text="Home" />
                         <Button fx:id="logoutBtn" layoutX="13.0" layoutY="525.0" mnemonicParsing="false" onAction="#logout" styleClass="nav-btn" stylesheets="@application.css" text="Log Out" />
-                        <Button layoutX="25.0" layoutY="223.0" minHeight="40.0" mnemonicParsing="false" prefWidth="150.0" styleClass="nav-btn" stylesheets="@application.css" text="Manage Workload" />
+                        <Button fx:id="workloadBtn" layoutX="25.0" layoutY="223.0" minHeight="40.0" mnemonicParsing="false" onAction="#switchForm" prefWidth="150.0" styleClass="nav-btn" stylesheets="@application.css" text="Manage Workload" />
                      </children>
                   </AnchorPane>
                </left>
                <center>
                   <AnchorPane prefHeight="579.0" prefWidth="1018.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutX="9.0" layoutY="9.0" prefHeight="551.0" prefWidth="946.0" stylesheets="@application.css" visible="false">
+                        <AnchorPane fx:id="home_form" layoutX="9.0" layoutY="9.0" prefHeight="551.0" prefWidth="946.0" stylesheets="@application.css">
                            <styleClass>
                               <String fx:value="white-bg" />
                               <String fx:value="shadow" />
@@ -78,7 +77,7 @@
                                                 <Font name="Arial Bold" size="23.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="104.0" layoutY="30.0" text="0" textFill="WHITE">
+                                          <Label fx:id="home_employees_total" layoutX="104.0" layoutY="30.0" text="0" textFill="WHITE">
                                              <font>
                                                 <Font name="Bodoni MT Bold" size="53.0" />
                                              </font>
@@ -96,7 +95,7 @@
                                                 <Font name="Arial Bold" size="23.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="111.0" layoutY="24.0" text="0" textFill="WHITE">
+                                          <Label fx:id="home_employees_part_time" layoutX="111.0" layoutY="24.0" text="0" textFill="WHITE">
                                              <font>
                                                 <Font name="Bodoni MT Bold" size="53.0" />
                                              </font>
@@ -114,7 +113,7 @@
                                                 <Font name="Arial Bold" size="23.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="109.0" layoutY="23.0" text="0" textFill="WHITE">
+                                          <Label fx:id="home_employees_full_time" layoutX="109.0" layoutY="23.0" text="0" textFill="WHITE">
                                              <font>
                                                 <Font name="Bodoni MT Bold" size="53.0" />
                                              </font>
@@ -123,7 +122,7 @@
                                     </AnchorPane>
                                  </children>
                               </AnchorPane>
-                              <BarChart layoutX="180.0" layoutY="218.0" prefHeight="318.0" prefWidth="586.0" title="Employee hours Chart">
+                              <BarChart fx:id="employees_hours_chart" layoutX="180.0" layoutY="218.0" prefHeight="318.0" prefWidth="586.0" title="Employee hours Chart">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -133,7 +132,7 @@
                               </BarChart>
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="9.0" layoutY="9.0" prefHeight="550.0" prefWidth="950.0" stylesheets="@application.css" visible="false">
+                        <AnchorPane fx:id="workload_form" layoutX="9.0" layoutY="9.0" prefHeight="550.0" prefWidth="950.0" stylesheets="@application.css" visible="false">
                            <styleClass>
                               <String fx:value="white-bg" />
                               <String fx:value="shadow" />
@@ -147,22 +146,22 @@
                                  <children>
                                     <TableView layoutY="35.0" prefHeight="298.0" prefWidth="949.0">
                                       <columns>
-                                        <TableColumn prefWidth="52.00003242492676" text="Type" />
-                                        <TableColumn prefWidth="200.79998016357422" text="Activity" />
-                                          <TableColumn prefWidth="177.60003662109375" text="Description" />
-                                          <TableColumn minWidth="0.0" prefWidth="45.60003662109375" text="Name" />
-                                          <TableColumn prefWidth="47.200042724609375" text="Year" />
-                                          <TableColumn prefWidth="115.20001220703125" text="Activity Duration" />
-                                          <TableColumn minWidth="5.60003662109375" prefWidth="60.0" text="Instances" />
-                                          <TableColumn prefWidth="45.60003662109375" text="Hours" />
-                                          <TableColumn prefWidth="47.20001220703125" text="ATSR" />
-                                          <TableColumn prefWidth="32.7999267578125" text="TS" />
-                                          <TableColumn prefWidth="41.5999755859375" text="TLR" />
-                                          <TableColumn prefWidth="40.0" text="SA" />
-                                          <TableColumn prefWidth="39.199951171875" text="Other" />
+                                        <TableColumn fx:id="wl_col_type" prefWidth="52.00003242492676" text="Type" />
+                                        <TableColumn fx:id="wl_col_activity" prefWidth="200.79998016357422" text="Activity" />
+                                          <TableColumn fx:id="wl_col_description" prefWidth="177.60003662109375" text="Description" />
+                                          <TableColumn fx:id="wl_col_name" minWidth="0.0" prefWidth="45.60003662109375" text="Name" />
+                                          <TableColumn fx:id="wl_col_year" prefWidth="47.200042724609375" text="Year" />
+                                          <TableColumn fx:id="wl_col_actvt_duration" prefWidth="115.20001220703125" text="Activity Duration" />
+                                          <TableColumn fx:id="wl_col_instances" minWidth="5.60003662109375" prefWidth="60.0" text="Instances" />
+                                          <TableColumn fx:id="wl_col_hours" prefWidth="45.60003662109375" text="Hours" />
+                                          <TableColumn fx:id="wl_col_atsr" prefWidth="47.20001220703125" text="ATSR" />
+                                          <TableColumn fx:id="wl_col_ts" prefWidth="32.7999267578125" text="TS" />
+                                          <TableColumn fx:id="wl_col_tlr" prefWidth="41.5999755859375" text="TLR" />
+                                          <TableColumn fx:id="wl_col_sa" prefWidth="40.0" text="SA" />
+                                          <TableColumn fx:id="wl_col_other" prefWidth="39.199951171875" text="Other" />
                                       </columns>
                                     </TableView>
-                                    <TextField layoutX="7.0" layoutY="4.0" prefHeight="26.0" prefWidth="267.0" promptText="Search by employee name..." />
+                                    <TextField fx:id="wl_input_search" layoutX="7.0" layoutY="4.0" prefHeight="26.0" prefWidth="267.0" promptText="Search by employee name..." />
                                  </children>
                               </AnchorPane>
                               <Label layoutX="14.0" layoutY="348.0" text="Type">
@@ -170,90 +169,90 @@
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="98.0" layoutY="344.0" />
+                              <TextField fx:id="wl_input_type" layoutX="98.0" layoutY="344.0" />
                               <Label layoutX="14.0" layoutY="382.0" text="Activity">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="98.0" layoutY="378.0" />
+                              <TextField fx:id="wl_input_activity" layoutX="98.0" layoutY="378.0" />
                               <Label layoutX="14.0" layoutY="417.0" text="Description">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="98.0" layoutY="413.0" />
+                              <TextField fx:id="wl_input_description" layoutX="98.0" layoutY="413.0" />
                               <Label layoutX="14.0" layoutY="452.0" text="Name">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="98.0" layoutY="448.0" />
+                              <TextField fx:id="wl_input_name" layoutX="98.0" layoutY="448.0" />
                               <Label layoutX="14.0" layoutY="487.0" text="Year">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="98.0" layoutY="483.0" />
+                              <TextField fx:id="wl_input_year" layoutX="98.0" layoutY="483.0" />
                               <Label layoutX="259.0" layoutY="348.0" text="Actv. Duration">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="353.0" layoutY="344.0" />
+                              <TextField fx:id="wl_input_actvt_duration" layoutX="353.0" layoutY="344.0" />
                               <Label layoutX="259.0" layoutY="382.0" text="Instances">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="353.0" layoutY="378.0" />
+                              <TextField fx:id="wl_input_instances" layoutX="353.0" layoutY="378.0" />
                               <Label layoutX="259.0" layoutY="417.0" text="Hours">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="353.0" layoutY="413.0" />
+                              <TextField fx:id="wl_input_hours" layoutX="353.0" layoutY="413.0" />
                               <Label layoutX="259.0" layoutY="452.0" text="ATSR">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="353.0" layoutY="448.0" />
+                              <TextField fx:id="wl_input_atsr" layoutX="353.0" layoutY="448.0" />
                               <Label layoutX="259.0" layoutY="487.0" text="TS">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="353.0" layoutY="483.0" />
+                              <TextField fx:id="wl_input_ts" layoutX="353.0" layoutY="483.0" />
                               <Label layoutX="526.0" layoutY="348.0" text="TLR">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="610.0" layoutY="344.0" />
+                              <TextField fx:id="wl_input_tlr" layoutX="610.0" layoutY="344.0" />
                               <Label layoutX="526.0" layoutY="382.0" text="SA">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="610.0" layoutY="378.0" />
+                              <TextField fx:id="wl_input_sa" layoutX="610.0" layoutY="378.0" />
                               <Label layoutX="526.0" layoutY="417.0" text="Other">
                                  <font>
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="610.0" layoutY="413.0" />
-                              <Button layoutX="530.0" layoutY="500.0" mnemonicParsing="false" text="Add" textFill="#46abae">
+                              <TextField fx:id="wl_input_other" layoutX="610.0" layoutY="413.0" />
+                              <Button fx:id="wl_btn_add" layoutX="530.0" layoutY="500.0" mnemonicParsing="false" text="Add" textFill="#46abae">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="610.0" layoutY="499.0" mnemonicParsing="false" text="Update" textFill="#53a8fc">
+                              <Button fx:id="wl_btn_update" layoutX="610.0" layoutY="499.0" mnemonicParsing="false" text="Update" textFill="#53a8fc">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="719.0" layoutY="499.0" mnemonicParsing="false" text="Delete" textFill="#ff7f50">
+                              <Button fx:id="wl_btn_delete" layoutX="719.0" layoutY="499.0" mnemonicParsing="false" text="Delete" textFill="#ff7f50">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
@@ -263,22 +262,56 @@
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField layoutX="610.0" layoutY="449.0" />
+                              <TextField fx:id="wl_input_id" layoutX="610.0" layoutY="449.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="9.0" layoutY="14.0" prefHeight="554.0" prefWidth="952.0">
+                        <AnchorPane fx:id="add_employee_form" layoutX="9.0" layoutY="14.0" prefHeight="554.0" prefWidth="952.0">
                            <children>
                               <AnchorPane prefHeight="556.0" prefWidth="475.0" stylesheets="@application.css">
                                  <styleClass>
                                     <String fx:value="white-bg" />
                                     <String fx:value="shadow" />
                                  </styleClass>
+                                 <children>
+                                    <Label layoutX="30.0" layoutY="62.0" text="Name">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="add_emp_name_input" layoutX="88.0" layoutY="62.0" prefHeight="26.0" prefWidth="185.0" />
+                                    <Label layoutX="30.0" layoutY="107.0" text="Department">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="add_emp_department_input" layoutX="133.0" layoutY="106.0" prefHeight="26.0" prefWidth="185.0" />
+                                    <Label layoutX="30.0" layoutY="148.0" text="Status">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="add_emp_add_btn" layoutX="30.0" layoutY="201.0" mnemonicParsing="false" text="Add">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
                               </AnchorPane>
                               <AnchorPane layoutX="511.0" layoutY="-1.0" prefHeight="556.0" prefWidth="424.0" stylesheets="@application.css">
                                  <styleClass>
                                     <String fx:value="white-bg" />
                                     <String fx:value="shadow" />
                                  </styleClass>
+                                 <children>
+                                    <TableView layoutX="14.0" layoutY="14.0" prefHeight="534.0" prefWidth="401.0">
+                                      <columns>
+                                        <TableColumn fx:id="add_emp_id_col" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="add_emp_name_col" prefWidth="75.0" text="Name" />
+                                          <TableColumn fx:id="add_emp_department_col" prefWidth="75.0" text="Department" />
+                                          <TableColumn fx:id="add_emp_status_col" prefWidth="75.0" text="Status" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
                               </AnchorPane>
                            </children>
                         </AnchorPane>

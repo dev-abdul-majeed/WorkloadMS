@@ -31,7 +31,7 @@
 }
 
 .nav-btn{
-	-fx-background-color: #4ca1af ;
+	-fx-background-color: transparent  ;
 	-fx-font-size: 14;
 	-fx-text-fill: #fff;
 	
