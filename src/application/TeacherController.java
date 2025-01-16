@@ -30,16 +30,16 @@ public class TeacherController {
     private TextField t_name;
 
     @FXML
-    private TableColumn<Integer, Teacher> teacher_id_col = new TableColumn<> ("id");
+    private TableColumn<Integer, Teacher> teacher_id_col;
     
     @FXML
-    private TableColumn<String, Teacher> teacher_department_col = new TableColumn<> ("department");
+    private TableColumn<String, Teacher> teacher_department_col;
 
     @FXML
-    private TableColumn<String, Teacher> teacher_name_col = new TableColumn<> ("name");;
+    private TableColumn<String, Teacher> teacher_name_col;
 
     @FXML
-    private TableColumn<String, Teacher> teacher_status_col = new TableColumn<> ("status");
+    private TableColumn<String, Teacher> teacher_status_col;
     
     @FXML
     private ComboBox<String> t_status;

@@ -10,7 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
@@ -41,6 +44,49 @@ public class WorkloadController {
 
     @FXML
     private ComboBox<String> wlf_year;
+    
+    @FXML
+    private TableView<Workload> wlf_table;
+    
+    @FXML
+    private TableColumn<Integer, Workload> wlf_col_activity;
+
+    @FXML
+    private TableColumn<Double, Workload> wlf_col_atsr;
+
+    @FXML
+    private TableColumn<String, Workload> wlf_col_description;
+
+    @FXML
+    private TableColumn<Double, Workload> wlf_col_duration;
+
+    @FXML
+    private TableColumn<Double, Workload> wlf_col_instances;
+
+    @FXML
+    private TableColumn<Double, Workload> wlf_col_other;
+
+    @FXML
+    private TableColumn<Double, Workload> wlf_col_sa;
+
+    @FXML
+    private TableColumn<Integer, Workload> wlf_col_teacher;
+    
+    @FXML
+    private TableColumn<String, Workload> wlf_col_teacher_name;
+
+
+    @FXML
+    private TableColumn<Double, Workload> wlf_col_tlr;
+
+    @FXML
+    private TableColumn<Double, Workload> wlf_col_ts;
+
+    @FXML
+    private TableColumn<String, Workload> wlf_col_type;
+
+    @FXML
+    private TableColumn<String, Workload> wlf_col_year;
 
     @FXML
     void add_workload(ActionEvent event) {
@@ -67,7 +113,10 @@ public class WorkloadController {
 				                     "\nYear: " + year + 
 				                     "\nActivity Duration: " + activity + 
 				                     "\nInstances: " + instances);
+    		wlf_table.setItems(FXCollections.observableArrayList(Workload.getWorkloads()));
+
     	}
+    	
     	else {
     		showError(error);
     	}
@@ -83,6 +132,23 @@ public class WorkloadController {
     	wlf_type.setItems(types);
     	wlf_activity.setItems(activities);
     	wlf_year.setItems(years);
+    	
+    	wlf_col_activity.setCellValueFactory(new PropertyValueFactory<>("activity"));
+    	wlf_col_atsr.setCellValueFactory(new PropertyValueFactory<>("atsr"));
+    	wlf_col_description.setCellValueFactory(new PropertyValueFactory<>("description"));
+    	wlf_col_duration.setCellValueFactory(new PropertyValueFactory<>("activityDuration"));
+    	wlf_col_instances.setCellValueFactory(new PropertyValueFactory<>("instances"));
+    	wlf_col_other.setCellValueFactory(new PropertyValueFactory<>("other"));
+    	wlf_col_sa.setCellValueFactory(new PropertyValueFactory<>("sa"));
+    	wlf_col_teacher.setCellValueFactory(new PropertyValueFactory<>("teacherId"));
+    	wlf_col_teacher_name.setCellValueFactory(new PropertyValueFactory<>("teacherName"));
+    	wlf_col_tlr.setCellValueFactory(new PropertyValueFactory<>("tlr"));
+    	wlf_col_ts.setCellValueFactory(new PropertyValueFactory<>("ts"));
+    	wlf_col_type.setCellValueFactory(new PropertyValueFactory<>("type"));
+    	wlf_col_year.setCellValueFactory(new PropertyValueFactory<>("year"));
+
+		wlf_table.setItems(FXCollections.observableArrayList(Workload.getWorkloads()));
+
 
 
     }

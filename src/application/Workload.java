@@ -6,6 +6,7 @@ public class Workload {
     // Instance variables
     private int id;
     private int teacherId;
+    private String teacher_name;
     private String type;
     private String activity;
     private String description;
@@ -33,6 +34,7 @@ public class Workload {
     public Workload(int teacherId, String type, String activity, String description, String year, double activityDuration, double instances) {
         this.id = idCounter++;
         this.teacherId = teacherId;
+        this.teacher_name = Teacher.getNameById(teacherId);
         this.type = type;
         this.activity = activity;
         this.description = description;
@@ -68,6 +70,14 @@ public class Workload {
 
     public void setType(String type) {
         this.type = type;
+    }
+    
+    public String getTeacherName() {
+        return teacher_name;
+    }
+
+    public void setTeacherName(String teacher_name) {
+        this.teacher_name = teacher_name;
     }
 
     public String getActivity() {
@@ -221,7 +231,6 @@ public class Workload {
         		error += "Please provide a numeric instance count. \n";
         	}
         }
-
     	return error;
     }
 }

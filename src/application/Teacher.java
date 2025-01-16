@@ -40,6 +40,15 @@ public class Teacher {
     	allTeachers.add(t);
     }
     
+    public static String getNameById(Integer id) {
+    	String name = "";
+    	for (Teacher teacher : allTeachers) {
+            if (teacher.getId() == id) {
+            	name = teacher.getName();	
+            }
+        }
+    	return name;
+    }
     public void print() {
     	System.out.println( " Teacher id: " + id +
     			"\n name: " + name +

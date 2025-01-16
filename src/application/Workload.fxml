@@ -4,15 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="938.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WorkloadController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WorkloadController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane prefHeight="623.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane layoutX="4.0" layoutY="44.0" prefHeight="576.0" prefWidth="930.0">
+            <AnchorPane layoutX="4.0" layoutY="44.0" prefHeight="576.0" prefWidth="1200.0">
                <children>
                   <Label layoutX="29.0" layoutY="143.0" text="Description">
                      <padding>
@@ -38,7 +40,7 @@
                         <Font name="Tahoma" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="31.0" layoutY="285.0" text="Instances">
+                  <Label layoutX="387.0" layoutY="125.0" text="Instances">
                      <padding>
                         <Insets bottom="5.0" />
                      </padding>
@@ -46,7 +48,7 @@
                         <Font name="Tahoma" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="32.0" layoutY="236.0" text="Duration">
+                  <Label layoutX="388.0" layoutY="76.0" text="Duration">
                      <padding>
                         <Insets bottom="5.0" />
                      </padding>
@@ -54,7 +56,7 @@
                         <Font name="Tahoma" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="33.0" layoutY="185.0" text="Year">
+                  <Label layoutX="389.0" layoutY="25.0" text="Year">
                      <padding>
                         <Insets bottom="5.0" />
                      </padding>
@@ -72,21 +74,42 @@
                   </Label>
                   <ComboBox fx:id="wlf_teacher" layoutX="115.0" layoutY="26.0" prefHeight="26.0" prefWidth="209.0" />
                   <ComboBox fx:id="wlf_type" layoutX="115.0" layoutY="65.0" prefHeight="26.0" prefWidth="210.0" />
-                  <ComboBox fx:id="wlf_year" layoutX="115.0" layoutY="183.0" prefHeight="26.0" prefWidth="210.0" />
+                  <ComboBox fx:id="wlf_year" layoutX="471.0" layoutY="23.0" prefHeight="26.0" prefWidth="210.0" />
                   <ComboBox fx:id="wlf_activity" layoutX="115.0" layoutY="105.0" prefHeight="26.0" prefWidth="210.0" />
                   <TextField fx:id="wlf_description" layoutX="115.0" layoutY="143.0" prefHeight="26.0" prefWidth="210.0" />
-                  <Button fx:id="wlf_add" layoutX="115.0" layoutY="338.0" mnemonicParsing="false" onAction="#add_workload" text="Add">
+                  <Button fx:id="wlf_add" layoutX="391.0" layoutY="168.0" mnemonicParsing="false" onAction="#add_workload" text="Add">
                      <font>
                         <Font size="19.0" />
                      </font>
                   </Button>
-                  <Button fx:id="wlf_teachers" layoutX="294.0" layoutY="346.0" mnemonicParsing="false" onAction="#switch_to_teachers" text="Teachers">
+                  <Button fx:id="wlf_teachers" layoutX="471.0" layoutY="168.0" mnemonicParsing="false" onAction="#switch_to_teachers" text="Teachers">
                      <font>
                         <Font size="19.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="wlf_duration" layoutX="115.0" layoutY="235.0" prefHeight="26.0" prefWidth="210.0" />
-                  <TextField fx:id="wlf_instances" layoutX="115.0" layoutY="284.0" prefHeight="26.0" prefWidth="210.0" />
+                  <TextField fx:id="wlf_duration" layoutX="471.0" layoutY="75.0" prefHeight="26.0" prefWidth="210.0" />
+                  <TextField fx:id="wlf_instances" layoutX="471.0" layoutY="124.0" prefHeight="26.0" prefWidth="210.0" />
+                  <AnchorPane layoutX="-4.0" layoutY="231.0" prefHeight="344.0" prefWidth="1200.0">
+                     <children>
+                        <TableView fx:id="wlf_table" layoutX="-199.0" prefHeight="344.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="wlf_col_teacher" prefWidth="46.39999461174011" text="T_id" />
+                            <TableColumn fx:id="wlf_col_teacher_name" prefWidth="136.8000144958496" text="Teacher" />
+                            <TableColumn fx:id="wlf_col_type" prefWidth="99.19999694824219" text="Type" />
+                            <TableColumn fx:id="wlf_col_activity" prefWidth="133.60003662109375" text="Activity" />
+                            <TableColumn fx:id="wlf_col_description" prefWidth="294.3999938964844" text="Description" />
+                            <TableColumn fx:id="wlf_col_year" prefWidth="78.39996337890625" text="Year" />
+                            <TableColumn fx:id="wlf_col_duration" prefWidth="78.39996337890625" text="Duration" />
+                            <TableColumn fx:id="wlf_col_instances" prefWidth="61.60003662109375" text="Instances" />
+                            <TableColumn fx:id="wlf_col_atsr" prefWidth="58.4000244140625" text="ATSR" />
+                            <TableColumn fx:id="wlf_col_ts" prefWidth="32.79998779296875" text="TS" />
+                            <TableColumn fx:id="wlf_col_tlr" prefWidth="35.20013427734375" text="TLR" />
+                            <TableColumn fx:id="wlf_col_sa" prefWidth="65.5999755859375" text="SA" />
+                            <TableColumn fx:id="wlf_col_other" prefWidth="36.800048828125" text="Other" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
             <Label layoutX="351.0" layoutY="14.0" text="Add Work Load Form">
