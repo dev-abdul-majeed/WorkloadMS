@@ -32,6 +32,9 @@ public class LoginController {
     
     @FXML
     private AnchorPane workload_form;
+    
+    @FXML
+    private Button add_teacher_wl;
 
     @FXML
     void login(ActionEvent event) {

@@ -46,14 +46,22 @@ public class Teacher {
     			"\n department: " + department +
     			"\n status: " + status);
     };
-    
+
     public static void printAll() {
     	for(int i = 0; i < allTeachers.size(); i++) {
     		System.out.println("--------------- Teacher:"+(i+1)+"---------\n");
 	    	allTeachers.get(i).print();
     	}
     };
+
     public static ArrayList<Teacher> teacherList() {
     	return allTeachers;
     }
+    
+    public static ArrayList<String> teacherNameList() {
+    	ArrayList<String> names = new ArrayList<>();
+        for (Teacher teacher : allTeachers) {
+            names.add(teacher.getId()+": "+teacher.getName());
+        }
+        return names;    }
 }
