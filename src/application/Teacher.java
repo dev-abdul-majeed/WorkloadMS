@@ -84,5 +84,24 @@ public class Teacher {
         for (Teacher teacher : allTeachers) {
             names.add(teacher.getId()+": "+teacher.getName());
         }
-        return names;    }
+        return names;    
+    }
+    
+    public static String validateTeacher(String name, String department, String status) {
+    	String error = "";
+    	if (name.isBlank()) {
+            error += "Please provide a Name \n";
+        }
+    	
+    	if (department == null) {
+            error += "Please select a Department \n";
+        }
+    	
+    	if (status == null) {
+            error += "Please select a Status \n";
+        }
+    	
+    	return error;
+    	
+    }
 }

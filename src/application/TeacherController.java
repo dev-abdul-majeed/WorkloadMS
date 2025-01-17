@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Optional;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,11 +9,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -78,10 +83,20 @@ public class TeacherController {
 		name = t_name.getText();
 		department = t_department.getSelectionModel().getSelectedItem();;
 		status = t_status.getSelectionModel().getSelectedItem();
-		Teacher t = new Teacher(name, department, status);
-		Teacher.addTeacher(t);
-		Teacher.printAll();
-		all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
+		String error = Teacher.validateTeacher(name, department, status);
+		if(error.isEmpty()) {
+			Teacher t = new Teacher(name, department, status);
+			Teacher.addTeacher(t);
+			Teacher.printAll();
+			all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
+	        clear_input_fields(e);
+
+		}
+		
+		else {
+			showError(error);
+		}
+		
 		
 	}
 	
@@ -94,9 +109,7 @@ public class TeacherController {
 		add_teacher.setDisable(true);
 		update_teacher.setDisable(false);
 	    delete_teacher.setDisable(false);
-
 	}
-	
 
     @FXML
     void clear_input_fields(ActionEvent event) {
@@ -110,15 +123,23 @@ public class TeacherController {
 
     @FXML
     void delete_selected_teacher(ActionEvent event) {
+    	
 		Teacher t = all_teachers.getSelectionModel().getSelectedItem();
-
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+	    alert.setTitle("Deleting Teacher");
+	    alert.setHeaderText("Do you want to delete realted workloads?");
+	    
+	    Optional<ButtonType> result = alert.showAndWait();
+	    if (result.get() == ButtonType.OK){
+	        Workload.getWorkloads().removeIf(workload -> workload.getTeacherId() == t.getId());
+	    } 
+	    
         Teacher.teacherList().removeIf(teacher -> teacher.getId() == t.getId());
 		all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
         all_teachers.refresh();
-        
-        clear_input_fields(event);
 
-    	
+        clear_input_fields(event);
+    
     }
     
     @FXML
@@ -128,20 +149,32 @@ public class TeacherController {
 		name = t_name.getText();
 		department = t_department.getSelectionModel().getSelectedItem();;
 		status = t_status.getSelectionModel().getSelectedItem();
-		
-        for (Teacher teacher : Teacher.teacherList()) {
-            if(teacher.getId() == t.getId()) {
-            	teacher.setName(name);
-        		teacher.setDepartment(department);
-        		teacher.setStatus(status);
-        		System.out.print("Updated:" + t.getName());
-        		break;
-            }
-        }
-        
-		all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
-		all_teachers.refresh();
-		clear_input_fields(event);
+		String error = Teacher.validateTeacher(name, department, status);
+		if(error.isEmpty()) {
+			for (Teacher teacher : Teacher.teacherList()) {
+	            if(teacher.getId() == t.getId()) {
+	            	teacher.setName(name);
+	        		teacher.setDepartment(department);
+	        		teacher.setStatus(status);
+	        		System.out.print("Updated:" + t.getName());
+	        		break;
+	            }
+	        }
+			
+			for (Workload w : Workload.getWorkloads()) {
+	            if(w.getTeacherId() == t.getId()) {
+	            	w.setTeacherName(name);
+	        		System.out.print("Updated Workloads:" + w.getId());
+	            }
+	        }
+	        
+			all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
+			all_teachers.refresh();
+			clear_input_fields(event);
+		}
+		else {
+			showError(error);
+		}
     }
     
 	@FXML
@@ -153,15 +186,21 @@ public class TeacherController {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Stage primaryStage = new Stage();
 			primaryStage.setScene(scene);
-			primaryStage.show();
-			
+			primaryStage.show();			
 		}
 		catch(Exception e){
 			e.printStackTrace();
-
 		}
 
-    }	
+    }
+	
+	private void showError(String error) {
+    	Alert alert = new Alert (AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Invalid input");
+		alert.setContentText(error);
+		alert.showAndWait();
+    }
 	
 
 }
