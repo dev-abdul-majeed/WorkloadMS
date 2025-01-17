@@ -26,7 +26,7 @@ public class WorkloadController {
 
     @FXML
     private Button wlf_teachers;
-
+    
     @FXML
     private TextField wlf_description;
 

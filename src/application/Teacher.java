@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Teacher {
     private final int id;
-    private final String name;
-    private final String department;
-    private final String status;
+    private  String name;
+    private  String department;
+    private  String status;
     private static final ArrayList<Teacher> allTeachers = new ArrayList<>();
     private static int idCount = 1;
 
@@ -36,6 +36,18 @@ public class Teacher {
         return status;
     }
     
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public static void addTeacher(Teacher t) {
     	allTeachers.add(t);
     }

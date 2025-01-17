@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +24,15 @@ public class TeacherController {
     
     @FXML
     private Button add_teacher_wl;
+    
+    @FXML
+    private Button clear_teacher;
+
+    @FXML
+    private Button delete_teacher;
+    
+    @FXML
+    private Button update_teacher;
 
     @FXML
     private TableView<Teacher> all_teachers;
@@ -58,7 +69,10 @@ public class TeacherController {
 	    ObservableList<String> departments = FXCollections.observableArrayList("FAST", "AHS", "EAF", "Engineering");
 	    t_status.setItems(statuses);
 	    t_department.setItems(departments);
-		all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
+	    update_teacher.setDisable(true);
+	    delete_teacher.setDisable(true);
+	    all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
+		
 	}
 
 	
@@ -72,6 +86,65 @@ public class TeacherController {
 		all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
 		
 	}
+	
+	public void edit_teacher() {
+		Teacher t = all_teachers.getSelectionModel().getSelectedItem();
+		System.out.print("Selected:" + t.getName());
+		t_name.setText(t.getName());
+		t_department.getSelectionModel().select(t.getDepartment());
+		t_status.getSelectionModel().select(t.getStatus());
+		add_teacher.setDisable(true);
+		update_teacher.setDisable(false);
+	    delete_teacher.setDisable(false);
+
+	}
+	
+
+    @FXML
+    void clear_input_fields(ActionEvent event) {
+    	t_name.clear();
+		t_department.getSelectionModel().clearSelection();
+		t_status.getSelectionModel().clearSelection();
+		add_teacher.setDisable(false);
+		update_teacher.setDisable(true);
+		delete_teacher.setDisable(true);
+    }
+
+    @FXML
+    void delete_selected_teacher(ActionEvent event) {
+		Teacher t = all_teachers.getSelectionModel().getSelectedItem();
+
+        Teacher.teacherList().removeIf(teacher -> teacher.getId() == t.getId());
+		all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
+        all_teachers.refresh();
+        
+        clear_input_fields(event);
+
+    	
+    }
+    
+    @FXML
+    void update_selected_teacher(ActionEvent event) {
+    	
+		Teacher t = all_teachers.getSelectionModel().getSelectedItem();
+		name = t_name.getText();
+		department = t_department.getSelectionModel().getSelectedItem();;
+		status = t_status.getSelectionModel().getSelectedItem();
+		
+        for (Teacher teacher : Teacher.teacherList()) {
+            if(teacher.getId() == t.getId()) {
+            	teacher.setName(name);
+        		teacher.setDepartment(department);
+        		teacher.setStatus(status);
+        		System.out.print("Updated:" + t.getName());
+        		break;
+            }
+        }
+        
+		all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
+		all_teachers.refresh();
+		clear_input_fields(event);
+    }
     
 	@FXML
     void switch_to_workload(ActionEvent event) {

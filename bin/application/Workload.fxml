@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WorkloadController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WorkloadController">
    <children>
-      <AnchorPane prefHeight="623.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="623.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane layoutX="4.0" layoutY="44.0" prefHeight="576.0" prefWidth="1200.0">
+            <AnchorPane layoutX="4.0" layoutY="44.0" prefHeight="576.0" prefWidth="1300.0">
                <children>
                   <Label layoutX="29.0" layoutY="143.0" text="Description">
                      <padding>
@@ -76,7 +76,7 @@
                   <ComboBox fx:id="wlf_type" layoutX="115.0" layoutY="65.0" prefHeight="26.0" prefWidth="210.0" />
                   <ComboBox fx:id="wlf_year" layoutX="471.0" layoutY="23.0" prefHeight="26.0" prefWidth="210.0" />
                   <ComboBox fx:id="wlf_activity" layoutX="115.0" layoutY="105.0" prefHeight="26.0" prefWidth="210.0" />
-                  <TextField fx:id="wlf_description" layoutX="115.0" layoutY="143.0" prefHeight="26.0" prefWidth="210.0" />
+                  <TextField fx:id="wlf_description" layoutX="115.0" layoutY="143.0" prefHeight="26.0" prefWidth="210.0" promptText="Workload description..." />
                   <Button fx:id="wlf_add" layoutX="391.0" layoutY="168.0" mnemonicParsing="false" onAction="#add_workload" text="Add">
                      <font>
                         <Font size="19.0" />
@@ -87,25 +87,25 @@
                         <Font size="19.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="wlf_duration" layoutX="471.0" layoutY="75.0" prefHeight="26.0" prefWidth="210.0" />
-                  <TextField fx:id="wlf_instances" layoutX="471.0" layoutY="124.0" prefHeight="26.0" prefWidth="210.0" />
-                  <AnchorPane layoutX="-4.0" layoutY="231.0" prefHeight="344.0" prefWidth="1200.0">
+                  <TextField fx:id="wlf_duration" layoutX="471.0" layoutY="75.0" prefHeight="26.0" prefWidth="210.0" promptText="0.0" />
+                  <TextField fx:id="wlf_instances" layoutX="471.0" layoutY="124.0" prefHeight="26.0" prefWidth="210.0" promptText="0.0" />
+                  <AnchorPane layoutX="-4.0" layoutY="231.0" prefHeight="344.0" prefWidth="1300.0">
                      <children>
                         <TableView fx:id="wlf_table" layoutX="-199.0" prefHeight="344.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                             <TableColumn fx:id="wlf_col_teacher" prefWidth="46.39999461174011" text="T_id" />
                             <TableColumn fx:id="wlf_col_teacher_name" prefWidth="136.8000144958496" text="Teacher" />
-                            <TableColumn fx:id="wlf_col_type" prefWidth="99.19999694824219" text="Type" />
-                            <TableColumn fx:id="wlf_col_activity" prefWidth="133.60003662109375" text="Activity" />
-                            <TableColumn fx:id="wlf_col_description" prefWidth="294.3999938964844" text="Description" />
-                            <TableColumn fx:id="wlf_col_year" prefWidth="78.39996337890625" text="Year" />
-                            <TableColumn fx:id="wlf_col_duration" prefWidth="78.39996337890625" text="Duration" />
-                            <TableColumn fx:id="wlf_col_instances" prefWidth="61.60003662109375" text="Instances" />
-                            <TableColumn fx:id="wlf_col_atsr" prefWidth="58.4000244140625" text="ATSR" />
-                            <TableColumn fx:id="wlf_col_ts" prefWidth="32.79998779296875" text="TS" />
-                            <TableColumn fx:id="wlf_col_tlr" prefWidth="35.20013427734375" text="TLR" />
-                            <TableColumn fx:id="wlf_col_sa" prefWidth="65.5999755859375" text="SA" />
-                            <TableColumn fx:id="wlf_col_other" prefWidth="36.800048828125" text="Other" />
+                            <TableColumn fx:id="wlf_col_type" prefWidth="63.199981689453125" text="Type" />
+                            <TableColumn fx:id="wlf_col_activity" prefWidth="140.800048828125" text="Activity" />
+                            <TableColumn fx:id="wlf_col_description" prefWidth="259.2000427246094" text="Description" />
+                            <TableColumn fx:id="wlf_col_year" prefWidth="152.79998779296875" text="Year" />
+                            <TableColumn fx:id="wlf_col_duration" prefWidth="86.4000244140625" text="Duration" />
+                            <TableColumn fx:id="wlf_col_instances" prefWidth="87.20001220703125" text="Instances" />
+                            <TableColumn fx:id="wlf_col_atsr" prefWidth="56.00006103515625" text="ATSR" />
+                            <TableColumn fx:id="wlf_col_ts" prefWidth="69.60009765625" text="TS" />
+                            <TableColumn fx:id="wlf_col_tlr" prefWidth="59.2000732421875" text="TLR" />
+                            <TableColumn fx:id="wlf_col_sa" prefWidth="64.0" text="SA" />
+                            <TableColumn fx:id="wlf_col_other" prefWidth="75.199951171875" text="Other" />
                           </columns>
                         </TableView>
                      </children>

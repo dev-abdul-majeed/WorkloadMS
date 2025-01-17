@@ -33,7 +33,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </Button>
-      <TableView fx:id="all_teachers" layoutX="9.0" layoutY="282.0" prefHeight="274.0" prefWidth="781.0">
+      <TableView fx:id="all_teachers" layoutX="9.0" layoutY="282.0" onMouseClicked="#edit_teacher" prefHeight="274.0" prefWidth="781.0">
         <columns>
           <TableColumn fx:id="teacher_id_col" prefWidth="75.0" text="id" />
           <TableColumn fx:id="teacher_name_col" prefWidth="228.8000030517578" text="Name" />
@@ -44,7 +44,22 @@
       <Accordion layoutX="266.0" layoutY="177.0" />
       <ComboBox fx:id="t_status" layoutX="138.0" layoutY="165.0" prefWidth="150.0" />
       <ComboBox fx:id="t_department" layoutX="525.0" layoutY="121.0" prefWidth="150.0" />
-      <Button fx:id="add_teacher_wl" layoutX="305.0" layoutY="219.0" mnemonicParsing="false" onAction="#switch_to_workload" prefHeight="35.0" prefWidth="94.0" text="Workloads">
+      <Button fx:id="add_teacher_wl" layoutX="637.0" layoutY="219.0" mnemonicParsing="false" onAction="#switch_to_workload" prefHeight="35.0" prefWidth="94.0" text="Workloads">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </Button>
+      <Button fx:id="update_teacher" layoutX="266.0" layoutY="219.0" mnemonicParsing="false" onAction="#update_selected_teacher" prefHeight="35.0" prefWidth="94.0" text="Update">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </Button>
+      <Button fx:id="delete_teacher" layoutX="515.0" layoutY="219.0" mnemonicParsing="false" onAction="#delete_selected_teacher" prefHeight="35.0" prefWidth="94.0" text="Delete">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </Button>
+      <Button fx:id="clear_teacher" layoutX="391.0" layoutY="219.0" mnemonicParsing="false" onAction="#clear_input_fields" prefHeight="35.0" prefWidth="94.0" text="Clear">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
