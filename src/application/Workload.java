@@ -108,7 +108,7 @@ public class Workload {
         return activityDuration;
     }
 
-    public void setActivityDuration(int activityDuration) {
+    public void setActivityDuration(double activityDuration) {
         this.activityDuration = activityDuration;
     }
 
@@ -116,7 +116,7 @@ public class Workload {
         return instances;
     }
 
-    public void setInstances(int instances) {
+    public void setInstances(double instances) {
         this.instances = instances;
     }
 

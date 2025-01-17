@@ -23,6 +23,15 @@ public class WorkloadController {
 
     @FXML
     private Button wlf_add;
+    
+    @FXML
+    private Button wlf_clear;
+    
+    @FXML
+    private Button wlf_delete;
+    
+    @FXML
+    private Button wlf_update;
 
     @FXML
     private Button wlf_teachers;
@@ -87,10 +96,12 @@ public class WorkloadController {
 
     @FXML
     private TableColumn<String, Workload> wlf_col_year;
+    
+	String teacher, type, activity, description, year, duration, instances;
+
 
     @FXML
     void add_workload(ActionEvent event) {
-    	String teacher, type, activity, description, year, duration, instances;
     	teacher = wlf_teacher.getSelectionModel().getSelectedItem();
     	type = wlf_type.getSelectionModel().getSelectedItem();	
     	activity = wlf_activity.getSelectionModel().getSelectedItem();
@@ -133,6 +144,10 @@ public class WorkloadController {
     	wlf_activity.setItems(activities);
     	wlf_year.setItems(years);
     	
+    	wlf_add.setDisable(false);
+    	wlf_update.setDisable(true);
+    	wlf_delete.setDisable(true);
+    	
     	wlf_col_activity.setCellValueFactory(new PropertyValueFactory<>("activity"));
     	wlf_col_atsr.setCellValueFactory(new PropertyValueFactory<>("atsr"));
     	wlf_col_description.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -152,6 +167,92 @@ public class WorkloadController {
 
 
     }
+    @FXML
+    void clear_workload(ActionEvent event) {
+    	wlf_teacher.getSelectionModel().clearSelection();
+    	wlf_type.getSelectionModel().clearSelection();	
+    	wlf_activity.getSelectionModel().clearSelection();
+        wlf_description.clear();
+    	wlf_year.getSelectionModel().clearSelection();
+    	wlf_duration.clear();
+    	wlf_instances.clear();
+    	
+    	wlf_add.setDisable(false);
+    	wlf_update.setDisable(true);
+    	wlf_delete.setDisable(true);
+
+    }
+
+    @FXML
+    void delete_workload(ActionEvent event) {
+    	
+    	Workload w = wlf_table.getSelectionModel().getSelectedItem();
+
+        Workload.getWorkloads().removeIf(workload -> workload.getId() == w.getId());
+		wlf_table.setItems(FXCollections.observableArrayList(Workload.getWorkloads()));
+        wlf_table.refresh();
+        
+    	clear_workload(event);
+    }
+
+    @FXML
+    void edit_workload() {
+    	
+    	Workload w = wlf_table.getSelectionModel().getSelectedItem();
+		System.out.print("Selected:" + w.getTeacherName());
+		wlf_teacher.getSelectionModel().select(w.getTeacherId() + ": " + w.getTeacherName());
+		wlf_type.getSelectionModel().select(w.getType());
+		wlf_activity.getSelectionModel().select(w.getActivity());
+		wlf_description.setText(w.getDescription());
+		wlf_year.getSelectionModel().select(w.getYear());
+		wlf_duration.setText("" + w.getActivityDuration());
+		wlf_instances.setText("" + w.getInstances());
+
+    	wlf_add.setDisable(true);
+    	wlf_update.setDisable(false);
+    	wlf_delete.setDisable(false);
+    }
+    
+    @FXML
+    void update_workload(ActionEvent event) {
+    	
+    	Workload w = wlf_table.getSelectionModel().getSelectedItem();
+    	teacher = wlf_teacher.getSelectionModel().getSelectedItem();
+    	type = wlf_type.getSelectionModel().getSelectedItem();	
+    	activity = wlf_activity.getSelectionModel().getSelectedItem();
+    	description = wlf_description.getText();
+    	year = wlf_year.getSelectionModel().getSelectedItem();
+    	duration = wlf_duration.getText();
+    	instances = wlf_instances.getText();
+		
+        for (Workload workload : Workload.getWorkloads()) {
+            if(workload.getId() == w.getId()) {
+            	int id = Integer.parseInt(teacher.split(":")[0]);
+            	String t_name = teacher.split(":")[1];
+
+        		double dur = Double.parseDouble(duration);
+        		double ins = Double.parseDouble(instances);
+        		
+        		workload.setTeacherId(id);
+        		workload.setTeacherName(t_name);
+        		workload.setType(type);
+        		workload.setActivity(activity);
+        		workload.setDescription(description);
+        		workload.setYear(year);
+        		workload.setActivityDuration(dur);
+        		workload.setInstances(ins);
+
+        		System.out.print("Updated:" + w.getId());
+        		break;
+            }
+        }
+        
+		wlf_table.setItems(FXCollections.observableArrayList(Workload.getWorkloads()));
+		wlf_table.refresh();
+
+    	clear_workload(event);
+    }
+    
     @FXML
     void switch_to_teachers(ActionEvent event) {
     	try {
