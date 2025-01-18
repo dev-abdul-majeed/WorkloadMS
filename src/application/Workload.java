@@ -1,4 +1,5 @@
 package application;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -35,18 +36,21 @@ public class Workload {
 
     // Constructor
     public Workload(int teacherId, String type, String activity, String description, String year, double activityDuration, double instances) {
-        this.id = idCounter++;
+        this.id = idCounter;
         this.teacherId = teacherId;
         this.teacher_name = Teacher.getNameById(teacherId);
         this.type = type;
         this.activity = activity;
         this.description = description;
         this.year = year;
-        this.activityDuration = activityDuration;
-        this.instances = instances;
+        this.activityDuration = Math.ceil(activityDuration);
+        this.instances = Math.ceil(instances);
         setHours(type, activityDuration, instances);
         
+        idCounter += 1;
+
         workloads.add(this);
+        setGlobalId();
         printWorkloads();
     }
     
@@ -74,7 +78,32 @@ public class Workload {
     public int getId() {
         return id;
     }
-
+    
+    public static int getGlobalId() {
+    	int global_id = -1;
+    	try (Scanner reader = new Scanner(new File("workloadId.txt"))) {
+            String line = reader.nextLine(); // Skip header row
+            if (line == null || line.equals("")) {
+                throw new IOException("File not found");
+            }
+            else {
+            	global_id = Integer.parseInt(line);
+            }
+    	}
+    	catch(IOException e) {
+    		System.out.println(e);
+    	}
+    	return global_id;
+    }
+    
+    public static void setGlobalId() {
+    	try (BufferedWriter writer = new BufferedWriter(new FileWriter("workloadId.txt"))) {
+            writer.write(""+idCounter); // Header row
+        }
+        catch (IOException e){
+        	System.out.println(e);
+        }
+    }
     public int getTeacherId() {
         return teacherId;
     }
@@ -141,11 +170,11 @@ public class Workload {
 
     public void setHours(String type, double duration, double instances) {
 //    	"ATSR", "TLR", "SA", "Other"
-    	double hours = duration * instances;
+    	double hours = Math.ceil(duration * instances);
     	switch (type){
     		case "ATSR":
     			this.atsr = hours;
-    			this.ts = hours * 1.2;
+    			this.ts = Math.ceil(hours * 1.2 * 100.0) / 100.0;
     			
     			this.tlr = 0;
     			this.sa = 0;
@@ -264,7 +293,6 @@ public class Workload {
             }
 
             workloads.clear(); // Clear current data
-            int maxId = 0; // To track the greatest ID
 
             while (reader.hasNextLine()) {
             	line = reader.nextLine();
@@ -291,11 +319,10 @@ public class Workload {
                 
                 new Workload( id, teacherId, teacher_name, type, activity, description, year, activityDuration, instances, atsr, ts, tlr, sa, other);
                  // Set the ID explicitly
-                maxId = Math.max(maxId, id); // Update the maximum ID
             }
 
             // Update idCount to continue from the highest ID + 1
-            idCounter = maxId + 1;
+            idCounter = getGlobalId() == -1 ? 1 : getGlobalId();
         }
     }
     // Static method to print all Workload objects

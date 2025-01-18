@@ -155,8 +155,8 @@ public class WorkloadController {
     	System.out.println("Error: "+error);
     	if (error == "") {
     		int id = Integer.parseInt(teacher.split(":")[0]);
-    		double dur = Double.parseDouble(duration);
-    		double ins = Double.parseDouble(instances);
+    		double dur = Math.ceil(Double.parseDouble(duration));
+    		double ins = Math.ceil(Double.parseDouble(instances));
     		new Workload(id, type, activity, description, year, dur, ins);
     		showWorkloadConfirmation("Added workload for: " + teacher + 
 				                     "\nType: " + type + 
@@ -244,8 +244,8 @@ public class WorkloadController {
 	            	int id = Integer.parseInt(teacher.split(":")[0]);
 	            	String t_name = teacher.split(":")[1];
 	
-	        		double dur = Double.parseDouble(duration);
-	        		double ins = Double.parseDouble(instances);
+	        		double dur = Math.ceil(Double.parseDouble(duration));
+	        		double ins = Math.ceil(Double.parseDouble(instances));
 	        		
 	        		workload.setTeacherId(id);
 	        		workload.setTeacherName(t_name);

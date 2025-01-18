@@ -167,7 +167,6 @@ public class TeacherController {
 	        		teacher.setDepartment(department);
 	        		teacher.setStatus(status);
 	        		System.out.print("Updated:" + t.getName());
-	    	        persistData();
 	        		break;
 	            }
 	        }
@@ -178,7 +177,9 @@ public class TeacherController {
 	        		System.out.print("Updated Workloads:" + w.getId());
 	            }
 	        }
-	        
+
+			persistData();
+
 			all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
 			all_teachers.refresh();
 			clear_input_fields(event);
@@ -216,6 +217,7 @@ public class TeacherController {
 	private void persistData() {
 		try {
         	Teacher.exportTeacherToCSV("");
+        	Workload.exportWorkloadToCSV("");
         }
         catch(IOException err) {
     		System.out.print("Error while exporting: " + err);

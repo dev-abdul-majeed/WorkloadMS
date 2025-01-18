@@ -2,6 +2,7 @@ package application;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,13 +25,40 @@ public class Teacher {
         
         allTeachers.add(this);
         
-        idCount = isLoading.isPresent() ? idCount : idCount + 1;
+        idCount = idCount + 1;
+        setGlobalId();
         
         
     }
 
     public int getId() {
         return id;
+    }
+    
+    public static int getGlobalId() {
+    	int global_id = -1;
+    	try (Scanner reader = new Scanner(new File("teacherId.txt"))) {
+            String line = reader.nextLine(); // Skip header row
+            if (line == null || line.equals("")) {
+                throw new IOException("File not found");
+            }
+            else {
+            	global_id = Integer.parseInt(line);
+            }
+    	}
+    	catch(IOException e) {
+    		System.out.println(e);
+    	}
+    	return global_id;
+    }
+    
+    public static void setGlobalId() {
+    	try (BufferedWriter writer = new BufferedWriter(new FileWriter("teacherId.txt"))) {
+            writer.write(""+idCount); // Header row
+        }
+        catch (IOException e){
+        	System.out.println(e);
+        }
     }
 
     public String getName() {
@@ -135,7 +163,6 @@ public class Teacher {
             }
 
             allTeachers.clear(); // Clear current data
-            int maxId = 0; // To track the greatest ID
 
             while (reader.hasNextLine()) {
             	line = reader.nextLine();
@@ -151,11 +178,10 @@ public class Teacher {
                 // Create a new Teacher with the given ID
                 Teacher teacher = new Teacher(name, department, status, Optional.of(true));
                 teacher.id = id; // Set the ID explicitly
-                maxId = Math.max(maxId, id); // Update the maximum ID
             }
 
             // Update idCount to continue from the highest ID + 1
-            idCount = maxId + 1;
+            idCount = getGlobalId() == -1 ? 1 : getGlobalId();
         }
     }
 
