@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import javafx.collections.FXCollections;
@@ -74,7 +75,16 @@ public class TeacherController {
 	    t_department.setItems(departments);
 	    update_teacher.setDisable(true);
 	    delete_teacher.setDisable(true);
+
+	    try{
+	    	Teacher.importTeacherFromCSV("");
+	    	}
+	    catch(IOException e ) {
+	    	System.out.println(e);
+	    };
+
 	    all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
+	    all_teachers.refresh();
 		
 	}
 
@@ -85,12 +95,11 @@ public class TeacherController {
 		status = t_status.getSelectionModel().getSelectedItem();
 		String error = Teacher.validateTeacher(name, department, status);
 		if(error.isEmpty()) {
-			Teacher t = new Teacher(name, department, status);
-			Teacher.addTeacher(t);
+			Teacher t = new Teacher(name, department, status, Optional.empty());
 			Teacher.printAll();
 			all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
 	        clear_input_fields(e);
-
+	        persistData();
 		}
 		
 		else {
@@ -135,6 +144,7 @@ public class TeacherController {
 	    } 
 	    
         Teacher.teacherList().removeIf(teacher -> teacher.getId() == t.getId());
+        persistData();
 		all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
         all_teachers.refresh();
 
@@ -157,6 +167,7 @@ public class TeacherController {
 	        		teacher.setDepartment(department);
 	        		teacher.setStatus(status);
 	        		System.out.print("Updated:" + t.getName());
+	    	        persistData();
 	        		break;
 	            }
 	        }
@@ -201,6 +212,15 @@ public class TeacherController {
 		alert.setContentText(error);
 		alert.showAndWait();
     }
+	
+	private void persistData() {
+		try {
+        	Teacher.exportTeacherToCSV("");
+        }
+        catch(IOException err) {
+    		System.out.print("Error while exporting: " + err);
+        }
+	}
 	
 
 }

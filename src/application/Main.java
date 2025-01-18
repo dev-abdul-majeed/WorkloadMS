@@ -10,11 +10,14 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("Workload.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("Teacher.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			Teacher.importTeacherFromCSV("");
+			Workload.importWorkloadFromCSV("");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

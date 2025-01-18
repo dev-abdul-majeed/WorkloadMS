@@ -1,6 +1,10 @@
 package application;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Workload {
     // Instance variables
@@ -13,12 +17,11 @@ public class Workload {
     private String year;
     private double activityDuration;
     private double instances;
-    private double hours;
-    private double atsr;
-    private double ts;
-    private double tlr;
-    private double sa;
-    private double other;
+    private double atsr= 0.0;
+    private double ts=0.0;
+    private double tlr=0.0;
+    private double sa=0.0;
+    private double other=0.0;
 
     // Static variable for unique ID generation
     private static int idCounter = 1;
@@ -41,12 +44,28 @@ public class Workload {
         this.year = year;
         this.activityDuration = activityDuration;
         this.instances = instances;
-        this.hours = activityDuration * instances;
-        this.atsr = instances * hours;
-        this.ts = (instances*hours)*1.2;
-        this.tlr = instances * hours;
-        this.sa = instances * hours;
-        this.other = 0;
+        setHours(type, activityDuration, instances);
+        
+        workloads.add(this);
+        printWorkloads();
+    }
+    
+    public Workload(int id, int teacherId, String teacher_name, String type, String activity, String description, String year, double activityDuration, double instances, double atsr, double ts, double tlr, double sa, double other) {
+    	this.id = id;
+    	this.teacherId = teacherId;
+    	this.teacher_name = teacher_name;
+    	this.type = type;
+    	this.activity = activity;
+    	this.description = description;
+    	this.year = year;
+    	this.activityDuration = activityDuration;
+    	this.instances = instances;
+    	this.atsr = atsr;
+    	this.ts = ts;
+    	this.tlr = tlr;
+    	this.sa = sa;
+    	this.other = other;
+        
         workloads.add(this);
         printWorkloads();
     }
@@ -120,12 +139,45 @@ public class Workload {
         this.instances = instances;
     }
 
-    public double getHours() {
-        return hours;
-    }
-
-    public void setHours(int hours) {
-        this.hours = hours;
+    public void setHours(String type, double duration, double instances) {
+//    	"ATSR", "TLR", "SA", "Other"
+    	double hours = duration * instances;
+    	switch (type){
+    		case "ATSR":
+    			this.atsr = hours;
+    			this.ts = hours * 1.2;
+    			
+    			this.tlr = 0;
+    			this.sa = 0;
+    			this.other = 0;
+    			break;
+    		case "TLR":
+    			this.tlr = hours;
+    			
+    			this.atsr = 0;
+    			this.ts = 0;
+    			this.sa = 0;
+    			this.other = 0;
+    			break;
+    			
+    		case "SA":
+    			this.sa = hours;
+    			
+    			this.atsr = 0;
+    			this.ts = 0;
+    			this.tlr = 0;
+    			this.other = 0;
+    			break;
+    			
+    		case "Other":
+    			this.other = hours;
+    			
+    			this.atsr = 0;
+    			this.ts = 0;
+    			this.tlr = 0;
+    			this.sa = 0;
+    			break;
+    	}
     }
 
     public double getAtsr() {
@@ -185,10 +237,71 @@ public class Workload {
         return years;    
     }
     
+    public static void exportWorkloadToCSV(String filePath) throws IOException {
+    	filePath = (filePath.isEmpty() ? "workloads.csv" : filePath);
+    	try (FileWriter writer = new FileWriter(filePath)) {
+            // Write the header
+            writer.append("ID,Teacher ID,Teacher Name,Type,Activity,Description,Year,Activity Duration,Instances,ATSR,TS,TLR,SA,Other\n");
+
+            // Write the data
+            for (Workload w : workloads) {
+	            writer.append(String.format("%d,%d,%s,%s,%s,%s,%s,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n",
+	                    w.id, w.teacherId, w.teacher_name, w.type, w.activity, w.description, w.year, 
+	                    w.activityDuration, w.instances, w.atsr, w.ts, w.tlr, w.sa, w.other));
+
+	            System.out.println("Data exported successfully to " + filePath);
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while exporting to CSV: " + e.getMessage());
+        }
+    }
+    
+    public static void importWorkloadFromCSV(String filePath) throws IOException {
+        try (Scanner reader = new Scanner(new File("workloads.csv"))) {
+            String line = reader.nextLine(); // Skip header row
+            if (line == null || !line.equals("ID,Teacher ID,Teacher Name,Type,Activity,Description,Year,Activity Duration,Instances,ATSR,TS,TLR,SA,Other")) {
+                throw new IOException("Invalid line CSV format.");
+            }
+
+            workloads.clear(); // Clear current data
+            int maxId = 0; // To track the greatest ID
+
+            while (reader.hasNextLine()) {
+            	line = reader.nextLine();
+                String[] fields = line.split(",");
+                if (fields.length != 14) {
+                    throw new IOException("Invalid data in CSV file.");
+                }
+
+                // Create a new workload with the given ID
+                int id = Integer.parseInt(fields[0]);
+                int teacherId = Integer.parseInt(fields[1]);
+                String teacher_name = fields[2];
+                String type = fields[3];
+                String activity = fields[4];
+                String description = fields[5];
+                String year = fields[6];
+                double activityDuration = Double.parseDouble(fields[7]);
+                double instances = Double.parseDouble(fields[8]);
+                double atsr = Double.parseDouble(fields[9]);
+                double ts = Double.parseDouble(fields[10]);
+                double tlr = Double.parseDouble(fields[11]);
+                double sa = Double.parseDouble(fields[12]);
+                double other = Double.parseDouble(fields[13]);
+                
+                new Workload( id, teacherId, teacher_name, type, activity, description, year, activityDuration, instances, atsr, ts, tlr, sa, other);
+                 // Set the ID explicitly
+                maxId = Math.max(maxId, id); // Update the maximum ID
+            }
+
+            // Update idCount to continue from the highest ID + 1
+            idCounter = maxId + 1;
+        }
+    }
     // Static method to print all Workload objects
     public static void printWorkloads() {
         for (Workload workload : workloads) {
-            System.out.println("ID: " + workload.getId() + ", Teacher ID: " + workload.getTeacherId() + ", Type: " + workload.getType() + ", Activity: " + workload.getActivity() + ", Description: " + workload.getDescription() + ", Name: " + workload.getTeacherId() + ", Year: " + workload.getYear() + ", Activity Duration: " + workload.getActivityDuration() + ", Instances: " + workload.getInstances() + ", Hours: " + workload.getHours() + ", ATSR: " + workload.getAtsr() + ", TS: " + workload.getTs() + ", TLR: " + workload.getTlr() + ", SA: " + workload.getSa() + ", Other: " + workload.getOther());
+            System.out.println("ID: " + workload.getId() + ", Teacher ID: " + workload.getTeacherId() + ", Type: " + workload.getType() + ", Activity: " + workload.getActivity() + ", Description: " + workload.getDescription() + ", Name: " + workload.getTeacherId() + ", Year: " + workload.getYear() + ", Activity Duration: " + workload.getActivityDuration() + ", Instances: " + workload.getInstances() + ", ATSR: " + workload.getAtsr() + ", TS: " + workload.getTs() + ", TLR: " + workload.getTlr() + ", SA: " + workload.getSa() + ", Other: " + workload.getOther());
         }
     }
     
