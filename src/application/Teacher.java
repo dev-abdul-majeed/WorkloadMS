@@ -14,7 +14,7 @@ public class Teacher {
     private  String department;
     private  String status;
     private static final ArrayList<Teacher> allTeachers = new ArrayList<>();
-    private static int idCount = 1;
+    private static int idCount = getGlobalId();
 
     public Teacher(String name, String department, String status, Optional <Boolean>isLoading) {
     	this.id = idCount;
@@ -29,13 +29,22 @@ public class Teacher {
         
         
     }
+    
+    public Teacher(int id, String name, String department, String status) {
+    	this.id = id;
+        this.name = name;
+        this.department = department;
+        this.status = status;
+        
+        allTeachers.add(this);        
+    }
 
     public int getId() {
         return id;
     }
     
     public static int getGlobalId() {
-    	int global_id = -1;
+    	int global_id = 1;
     	try (Scanner reader = new Scanner(new File("teacherId.txt"))) {
             String line = reader.nextLine(); // Skip header row
             if (line == null || line.equals("")) {
@@ -189,12 +198,9 @@ public class Teacher {
                 String status = fields[3];
 
                 // Create a new Teacher with the given ID
-                Teacher teacher = new Teacher(name, department, status, Optional.of(true));
+                Teacher teacher = new Teacher(id, name, department, status);
                 teacher.id = id; // Set the ID explicitly
             }
-
-            // Update idCount to continue from the highest ID + 1
-            idCount = getGlobalId() == -1 ? 1 : getGlobalId();
         }
     }
 

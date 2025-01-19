@@ -25,7 +25,7 @@ public class Workload {
     private double other=0.0;
 
     // Static variable for unique ID generation
-    private static int idCounter = 1;
+    private static int idCounter = getGlobalId();
 
     // ArrayList to store Workload objects
     private static final ArrayList<Workload> workloads = new ArrayList<>();
@@ -80,7 +80,7 @@ public class Workload {
     }
     
     public static int getGlobalId() {
-    	int global_id = -1;
+    	int global_id = 1;
     	try (Scanner reader = new Scanner(new File("workloadId.txt"))) {
             String line = reader.nextLine(); // Skip header row
             if (line == null || line.equals("")) {
@@ -321,8 +321,6 @@ public class Workload {
                  // Set the ID explicitly
             }
 
-            // Update idCount to continue from the highest ID + 1
-            idCounter = getGlobalId() == -1 ? 1 : getGlobalId();
         }
     }
     // Static method to print all Workload objects
