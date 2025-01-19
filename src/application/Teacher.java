@@ -2,7 +2,6 @@ package application;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,6 +82,20 @@ public class Teacher {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    
+    public static int partTimeCount() {
+    	int count = 0;
+    	for (Teacher teacher : allTeachers) {
+            count = teacher.getStatus().equals("Part Time") ? count+1 : count;
+        }
+    	
+    	return count;
+    }
+    
+    public static int fullTimeCount() {
+    	int count = allTeachers.size() - partTimeCount();
+    	return count;
     }
 
     public static void addTeacher(Teacher t) {

@@ -37,6 +37,9 @@ public class TeacherController {
     
     @FXML
     private Button update_teacher;
+    
+    @FXML
+    private Button home_btn;
 
     @FXML
     private TableView<Teacher> all_teachers;
@@ -95,7 +98,7 @@ public class TeacherController {
 		status = t_status.getSelectionModel().getSelectedItem();
 		String error = Teacher.validateTeacher(name, department, status);
 		if(error.isEmpty()) {
-			Teacher t = new Teacher(name, department, status, Optional.empty());
+			new Teacher(name, department, status, Optional.empty());
 			Teacher.printAll();
 			all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
 	        clear_input_fields(e);
@@ -205,6 +208,23 @@ public class TeacherController {
 		}
 
     }
+
+	@FXML
+    void switch_to_home(ActionEvent even) {
+    	try {
+    		home_btn.getScene().getWindow().hide();
+    		Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Stage primaryStage = new Stage();
+			primaryStage.setScene(scene);
+			primaryStage.show();			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+    	
+    }
 	
 	private void showError(String error) {
     	Alert alert = new Alert (AlertType.ERROR);
@@ -223,6 +243,4 @@ public class TeacherController {
     		System.out.print("Error while exporting: " + err);
         }
 	}
-	
-
 }

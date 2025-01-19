@@ -60,7 +60,7 @@ public class LoginController {
     	else {
     		try {
 	    		loginBtn.getScene().getWindow().hide();
-	    		Parent root = FXMLLoader.load(getClass().getResource("Teacher.fxml"));
+	    		Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				Stage primaryStage = new Stage();

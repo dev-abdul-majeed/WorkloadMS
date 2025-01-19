@@ -9,8 +9,16 @@
 	
 }
 
-.textfield:focused{
-	-fx-background-color:#fff;
+.textfield{
+	-fx-background-color:#b4c5e4;
+}
+
+.drop-down{
+	-fx-background-color:  white;
+	-fx-border-color:  #118ab2 ;
+	-fx-border-width: 2px;
+	-fx-border-radius: 10px;
+	-fx-background-radius: 10px;
 }
 
 .left-dashboard-panel{
@@ -55,3 +63,63 @@
 	
 }
 
+.login-btn{
+	-fx-background-color: #06d6a0  ;
+	-fx-font-size: 16;
+	-fx-text-fill: #fff;
+	
+}
+
+.login-btn:hover{
+	-fx-background-color:  #073b4c;
+	-fx-font-size: 16;
+	-fx-border-radius: 2px 2px 2px 2px;
+	-fx-cursor: hand;
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {   
+    -fx-background-color: #edf2f4;
+    -fx-text-fill: white;
+    -fx-stroke: transparent;
+    -fx-size:30;
+    -fx-alignment: CENTER ;    
+    -fx-text-alignment: center;
+
+}
+.table-row-cell:filled:hover {
+
+    -fx-size:50;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+
+
+}
+.table-view:row-selection {
+    -fx-background-color:  #fbfff1;
+
+}
+
+.table-view .table-column{
+    -fx-text-alignment: center;
+    -fx-alignment: CENTER 
+
+}
+
+.orange-bg{
+    -fx-background-color: #fcbf49;	
+}
+
+.red-bg{
+	    -fx-background-color: #ef476f;	
+	
+}
+
+.grey-bg{
+	    -fx-background-color: #8d99ae ;	
+}
+
+.blue-bg{
+	-fx-background-color: #007ea7;
+}
