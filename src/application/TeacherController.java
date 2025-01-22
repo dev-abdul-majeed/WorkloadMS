@@ -98,7 +98,7 @@ public class TeacherController {
 		status = t_status.getSelectionModel().getSelectedItem();
 		String error = Teacher.validateTeacher(name, department, status);
 		if(error.isEmpty()) {
-			new Teacher(name, department, status, Optional.empty());
+			new Teacher(name, department, status);
 			Teacher.printAll();
 			all_teachers.setItems(FXCollections.observableArrayList(Teacher.teacherList()));
 	        clear_input_fields(e);

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Teacher {
@@ -16,7 +15,7 @@ public class Teacher {
     private static final ArrayList<Teacher> allTeachers = new ArrayList<>();
     private static int idCount = getGlobalId();
 
-    public Teacher(String name, String department, String status, Optional <Boolean>isLoading) {
+    public Teacher(String name, String department, String status) {
     	this.id = idCount;
         this.name = name;
         this.department = department;

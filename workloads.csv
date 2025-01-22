@@ -1,2 +1,4 @@
 ID,Teacher ID,Teacher Name,Type,Activity,Description,Year,Activity Duration,Instances,ATSR,TS,TLR,SA,Other
-2,3,Khan,TLR,Formal Scheduled Teaching,Sample Work Description,Trimester 2,12.00,4.00,0.00,0.00,48.00,0.00,0.00
+9,51,Dr. James Xue,TLR,Module Leader,BSCS,All Year,12.00,12.00,0.00,0.00,144.00,0.00,0.00
+12,53,Sample,SA,Dissertation/Projects,Sample desrptn,Trimester 1,4.00,12.00,0.00,0.00,0.00,48.00,0.00
+13,54,Dr. Suraj Ajit,ATSR,Formal Scheduled Teaching,Sample workload,Trimester 2,12.00,4.00,48.00,57.60,0.00,0.00,0.00
